@@ -14,10 +14,12 @@
 EPuckRobot::EPuckRobot() 
   : mLeftMotor {getMotor("left wheel motor")} 
   , mRightMotor {getMotor("right wheel motor")}
-  , mEmitter {getEmitter("emitter")}
-  , mReceiver {getReceiver("receiver")}
+  // , mEmitter {getEmitter("emitter")}
+  // , mReceiver {getReceiver("receiver")}
   {
-  
+    mEmitter = getEmitter("emitter");
+    mReceiver = getReceiver("receiver");
+
     // initialise distance sensors
     const std::array<std::string, N_DIST_SENSORS> psNames {
       "ps0", "ps1", "ps2", "ps3",
@@ -34,7 +36,7 @@ EPuckRobot::EPuckRobot()
     mLeftMotor->setVelocity(0.0);
     mRightMotor->setVelocity(0.0);
     
-    // initialise receiver
+    // enable receiver
     mReceiver->enable(TIME_STEP);
 }
 
@@ -103,10 +105,11 @@ void EPuckRobot::sendMessage(const std::string& data) {
 
 std::string EPuckRobot::receiveMessage() {
   if (mReceiver->getQueueLength() > 0) {
-    std::string message {static_cast<const char *>(mReceiver->getData())};
+    std::string message{static_cast<const char *>(mReceiver->getData())};
     mReceiver->nextPacket();
 
     return message;
+  } else {
+    return "";
   }
-  return "";
 }

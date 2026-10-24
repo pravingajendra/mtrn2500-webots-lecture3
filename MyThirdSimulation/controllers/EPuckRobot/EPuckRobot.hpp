@@ -13,6 +13,7 @@
 #include <webots/Receiver.hpp>
 
 #include <array>
+#include <string>
 
 const int TIME_STEP {64};
 const double MAX_SPEED {6.28};
@@ -28,7 +29,7 @@ protected:
   void roam();
   
   void sendMessage(const std::string& data);
-  std::string receiveMessage();
+  std::string receiveMessage(); 
   
   std::array<webots::DistanceSensor*, N_DIST_SENSORS> mPs {};
   std::array<double, N_DIST_SENSORS> mPsValues {};
@@ -40,7 +41,7 @@ protected:
   double mLeftSpeed {};
   double mRightSpeed {};  
 
-private:  
-  webots::Emitter* mEmitter {};
+private:
   webots::Receiver* mReceiver {};
+  webots::Emitter* mEmitter {};
 };

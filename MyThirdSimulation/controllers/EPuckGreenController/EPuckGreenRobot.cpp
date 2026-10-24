@@ -16,8 +16,6 @@ void EPuckGreenRobot::display() const {
 void EPuckGreenRobot::turn() {
     // initialize motor speeds at 50% of MAX_SPEED.
     const double speedScale {0.5};
-    mLeftSpeed = speedScale * MAX_SPEED;
-    mRightSpeed = speedScale * MAX_SPEED;
 
     // turn right
     mLeftSpeed  = speedScale * MAX_SPEED;
@@ -34,6 +32,10 @@ void EPuckGreenRobot::run() {
         int k{mKeyboard->getKey()};
         if (k == 'T') {
             turn();
+        } else if (k == 'B') {
+            sendMessage("Backward");
+        } else if (k == 'R') {
+            sendMessage("Roam");
         } else {
             roam();
         }
